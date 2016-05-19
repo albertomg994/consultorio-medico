@@ -61,6 +61,28 @@ public:
     
     // Getters
     const list<Appointment> & appointments() const { return _appointments; }
+    size_t size() const { return _appointments.size(); }
+    
+    /**
+     * Returns a list with all appointments on a concrete day
+     * Complexity: O(n), n = _appointments.size()
+     *
+     * @param d The date
+     * @return The list
+     */
+    list<Appointment> get_appointments_on_date(const Date &d) const {
+        
+        list<Appointment> ret;
+        
+        list<Appointment>::const_iterator it = _appointments.cbegin();
+        while (it != _appointments.cend()) {
+            // We only have to check same day
+            if ((*it).date().day() == d.day()) ret.push_back(*it);
+            it++;
+        }
+        
+        return ret;
+    }
     
     /**
      * Pushes a new appointment to appointments list. If the new appointment
