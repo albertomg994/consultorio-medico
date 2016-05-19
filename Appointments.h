@@ -87,10 +87,7 @@ public:
     /**
      * Pushes a new appointment to appointments list. If the new appointment
      * collides with another one's date, throw exception.
-     * Complexity: O(n)
-     *
-     * TODO: whe could avoid this O(n) complexity by using,
-     * for example, a HashTable where the key is the date.
+     * Complexity: O(n), n = _appointments.size()
      *
      * @param a Appointment to insert in appointments list.
      * @throws DateAlreadyTakenException if trying to make and appointment on
@@ -100,12 +97,14 @@ public:
         
         list<Appointment>::const_iterator it = _appointments.cbegin();
         
-        while (it != _appointments.cend()) {
-            if (a.date() == (*it).date()) throw DateAlreadyTakenException();
-            it++;
-        }
+        // Search insert position
+        while (a.date() > (*it).date() && it != _appointments.cend()) it++;   // O(n)
         
-        _appointments.push_back(a);
+        // Check if date is already taken
+        if (a.date() == (*it).date()) throw DateAlreadyTakenException();
+        
+        
+        _appointments.insert(it, a);            // O(1)
     }
     
     /**
