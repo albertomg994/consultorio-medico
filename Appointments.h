@@ -10,6 +10,7 @@
 #define Appointments_h
 
 #include <list>
+#include <queue>
 #include "Appointment.h"
 
 using namespace std;
@@ -114,7 +115,7 @@ public:
      * @return const referente to next appointment in list
      * @throws EmptyAppointmentListException if list is empty.
      */
-    const Appointment & next_appointment() {
+    const Appointment & next_appointment() const {
         
         if (_appointments.empty())
             throw EmptyAppointmentListException();
