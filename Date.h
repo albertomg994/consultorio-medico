@@ -87,7 +87,7 @@ public:
     /*                      Operators                          */
     /***********************************************************/
             
-    bool operator<(const Date &other){
+    bool operator<(const Date &other) const {
         if (_day < other.day()) return true;
         else if (_day > other.day()) return false;
         else { // _day == other.day()
@@ -99,12 +99,26 @@ public:
         }
     }
             
-    bool operator==(const Date &other) {
+    bool operator==(const Date &other) const {
         return (_day == other.day()) &&
                (_hour == other.hour()) &&
                (_minute == other.minute());
     }
+    
+    bool operator>(const Date &other) const {
+        if (_day > other.day()) return true;
+        else if (_day < other.day()) return false;
+        else { // _day == other.day()
+            if (_hour > other.hour()) return true;
+            else if (_hour < other.hour()) return false;
+            else { // _hour == other.hour()
+                return _minute > other.minute();
+            }
+        }
+    }
 
+    // NOTA: dice Miguel que cree que estos operados hay que definirlos
+    // como operacione externas
     friend ostream &operator<<(ostream &output, const Date &d ) {
         output << d.to_string();
         return output;
@@ -114,15 +128,6 @@ public:
         input >> d._day >> d._hour >> d._minute;
         return input;
     }
-
 };
-
-bool operator<(const Date &d1, const Date &d2) {
-    return (d1 < d2);
-}
-
-bool operator==(const Date &d1, const Date &d2) {
-    return (d1 == d2);
-}
 
 #endif /* Date_h */

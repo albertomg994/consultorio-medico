@@ -12,11 +12,9 @@
 #include <string>
 
 #include "Date.h"
-#include "Clinic.h"
 
 using namespace std;
 
-using Medic = std::string;     // Medic type
 using Patient = std::string;   // Patient type
 
 /**
@@ -24,19 +22,19 @@ using Patient = std::string;   // Patient type
  */
 class Appointment {
 private:
-    
+
     Patient _patient;
     Date _date;
-    
+
 public:
-    
+
     // Constructor - create new appointment
     Appointment(Patient p, Date d) : _patient(p), _date(d) {}
-    
+
     // Getters
     const Patient & patient() const { return _patient; }
     const Date & date() const { return _date; }
-    
+
     // Others
     string to_string() {
         return "Patient: " + _patient + " - Date: " + _date.to_string();
