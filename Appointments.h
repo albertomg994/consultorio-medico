@@ -10,7 +10,6 @@
 #define Appointments_h
 
 #include <list>
-#include <queue>
 #include "Appointment.h"
 
 using namespace std;
@@ -96,10 +95,10 @@ public:
      */
     void new_appointment(const Appointment & a) {
         
-        list<Appointment>::const_iterator it = _appointments.cbegin();
+        list<Appointment>::iterator it = _appointments.begin();
         
         // Search insert position
-        while (a.date() > (*it).date() && it != _appointments.cend()) it++;   // O(n)
+        while (a.date() > (*it).date() && it != _appointments.end()) it++;   // O(n)
         
         // Check if date is already taken
         if (a.date() == (*it).date()) throw DateAlreadyTakenException();
