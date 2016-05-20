@@ -84,9 +84,6 @@ public:
         
         // Add the new appointment
         apps->new_appointment(a);
-        
-        // Backup --> modo una sola línea
-        //it.value().new_appointment(a);
     }
 
     /**
@@ -130,9 +127,6 @@ public:
         
         // Get next appointment (throws EmptyAppointmentListException)
         aps->pop_appointment();                                         // O(1)
-        
-        // Backup - modo single line
-        //it.value().pop_appointment();
     }
 
     /**
@@ -156,33 +150,6 @@ public:
         
         // Obtener la lista de citas en la fecha indicada
         list<Appointment> aps_date = aps.get_appointments_on_date(d);       // O(n), n = appointments.size()
-        
-        // Quedarnos con los pacientes únicos
-        /*list<PatientDate> pats;
-        bool unique = true;
-        
-        list<Appointment>::const_iterator aps_it = aps_date.cbegin();
-        while (aps_it != aps_date.cend()) {
-            
-            // For each appointment, check if patient is unique in "pats"
-            list<PatientDate>::const_iterator pats_it = pats.cbegin();
-            while (unique && pats_it != pats.cend()) {
-                if ((*aps_it).patient() == *pats_it) unique = false;
-                pats_it++;
-            }
-            
-            if (unique) {
-                struct PatientDate aux;
-                
-                aux.paciente = (*aps_it).patient();
-                aux.hora = (*aps_it).date().hour();
-                aux.minuto = (*aps_it).date().minute();
-
-                pats.push_back(aux);
-            }
-            aps_it++;
-            unique = true;
-        }*/
         
         list<PatientDate> patients;
         

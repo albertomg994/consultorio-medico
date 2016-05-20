@@ -123,18 +123,6 @@ public:
             }
         }
     }
-
-    // NOTA: dice Miguel que cree que estos operados hay que definirlos
-    // como operacione externas
-    /*friend ostream &operator<<(ostream &output, const Date &d ) {
-        output << d.to_string();
-        return output;
-    }
-    
-    friend istream &operator>>(istream  &input, Date &d) {
-        input >> d._day >> d._hour >> d._minute;
-        return input;
-    }*/
 };
 
 
@@ -147,7 +135,6 @@ istream &operator>>(istream  &input, Date &d) {
     unsigned int day, hour, minute;
     input >> day >> hour >> minute;
     d.set_day(day); d.set_hora(hour); d.set_min(minute);
-    //input >> d.set_day() >> d._hour >> d._minute;
     return input;
 }
 
