@@ -1,0 +1,91 @@
+Doctor Alvarez dia 16
+Antonio 12:10
+Ana 12:30
+---
+Siguiente Paciente doctor Alvarez
+Antonio
+---
+Doctor Alvarez dia 16
+Ana 12:30
+---
+Doctor Alvarez dia 17
+Alvaro 10:00
+Alba 10:15
+Anacleto 10:55
+---
+------
+Medico no existente
+---
+Doctor Hernandez dia 17
+
+---
+No hay pacientes
+---
+------
+------
+Medico no existente
+---
+Fecha ocupada
+---
+Medico no existente
+---
+Siguiente Paciente doctor Medico3
+Medico no existente
+---
+Doctor Medico1 dia 23
+
+---
+Siguiente Paciente doctor Medico1
+No hay pacientes
+---
+Doctor Medico2 dia 12
+Paciente4 00:13
+Paciente6 04:05
+Paciente2 10:10
+Paciente5 13:00
+---
+Siguiente Paciente doctor Medico2
+Paciente4
+---
+Doctor Medico2 dia 12
+Paciente6 04:05
+Paciente2 10:10
+Paciente5 13:00
+---
+Siguiente Paciente doctor Medico2
+Paciente6
+---
+Doctor Medico2 dia 12
+Paciente2 10:10
+Paciente5 13:00
+---
+Siguiente Paciente doctor Medico2
+Paciente2
+---
+Doctor Medico2 dia 12
+Paciente5 13:00
+---
+Siguiente Paciente doctor Medico2
+Paciente5
+---
+Doctor Medico2 dia 12
+
+---
+Siguiente Paciente doctor Medico2
+No hay pacientes
+---
+No hay pacientes
+---
+Doctor Medico2 dia 12
+
+---
+Siguiente Paciente doctor Medico2
+No hay pacientes
+---
+Doctor Medico2 dia 31
+
+---
+Siguiente Paciente doctor Medico2
+No hay pacientes
+---
+------

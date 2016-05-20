@@ -1,0 +1,53 @@
+12
+nuevoMedico Hernandez
+nuevoMedico Alvarez
+pideConsulta Ana Alvarez 16 12 30
+pideConsulta Antonio Alvarez 16 12 10
+pideConsulta Alvaro Alvarez 17 10 00
+pideConsulta Alba Alvarez 17 10 15
+pideConsulta Anacleto Alvarez 17 10 55
+listaPacientes Alvarez 16
+siguientePaciente Alvarez
+atiendeConsulta Alvarez
+listaPacientes Alvarez 16
+listaPacientes Alvarez 17
+6
+nuevoMedico Hernandez
+pideConsulta Alvarez Ana 16 12 30
+pideConsulta Helena Hernandez 17 10 00
+atiendeConsulta Hernandez
+listaPacientes Hernandez 17
+atiendeConsulta Hernandez
+0
+31
+nuevoMedico Medico1
+nuevoMedico Medico2
+pideConsulta Paciente1 Medico3 10 10 10
+pideConsulta Paciente2 Medico2 12 10 10
+pideConsulta Paciente3 Medico2 12 10 10
+pideConsulta Paciente4 Medico2 12 00 13
+pideConsulta Paciente5 Medico2 12 13 00
+pideConsulta Paciente6 Medico2 12 04 05
+listaPacientes Medico3 10
+siguientePaciente Medico3
+listaPacientes Medico1 23
+siguientePaciente Medico1
+listaPacientes Medico2 12
+siguientePaciente Medico2
+atiendeConsulta Medico2
+listaPacientes Medico2 12
+siguientePaciente Medico2
+atiendeConsulta Medico2
+listaPacientes Medico2 12
+siguientePaciente Medico2
+atiendeConsulta Medico2
+listaPacientes Medico2 12
+siguientePaciente Medico2
+atiendeConsulta Medico2
+listaPacientes Medico2 12
+siguientePaciente Medico2
+atiendeConsulta Medico2
+listaPacientes Medico2 12
+siguientePaciente Medico2
+listaPacientes Medico2 31
+siguientePaciente Medico2
