@@ -10,6 +10,10 @@
 #define Date_h
 
 #include "ClinicException.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 class InvalidDateException : public ClinicException {
 public:
@@ -51,7 +55,10 @@ public:
      * according tho the criteria in bool valid(d,h,m) method.
      */
     Date(unsigned int day, unsigned int hour, unsigned int minute) {
-        if (!valid_date(day, hour, minute)) throw InvalidDateException();
+        if (!valid_date(day, hour, minute)) {
+            cout << "Tried to create this date: " << day << " " << hour << ":" << minute << endl;
+            throw InvalidDateException();
+        }
         _day = day; _hour = hour; _minute = minute;
     }
 
@@ -119,7 +126,7 @@ public:
 
     // NOTA: dice Miguel que cree que estos operados hay que definirlos
     // como operacione externas
-    friend ostream &operator<<(ostream &output, const Date &d ) {
+    /*friend ostream &operator<<(ostream &output, const Date &d ) {
         output << d.to_string();
         return output;
     }
@@ -127,7 +134,21 @@ public:
     friend istream &operator>>(istream  &input, Date &d) {
         input >> d._day >> d._hour >> d._minute;
         return input;
-    }
+    }*/
 };
+
+
+ostream &operator<<(ostream &output, const Date &d ) {
+    output << d.to_string();
+    return output;
+}
+
+istream &operator>>(istream  &input, Date &d) {
+    unsigned int day, hour, minute;
+    input >> day >> hour >> minute;
+    d.set_day(day); d.set_hora(hour); d.set_min(minute);
+    //input >> d.set_day() >> d._hour >> d._minute;
+    return input;
+}
 
 #endif /* Date_h */

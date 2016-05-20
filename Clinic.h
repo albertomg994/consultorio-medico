@@ -23,6 +23,27 @@ using namespace std;
 using Medic = std::string;     // Medic type
 using Patient = std::string;   // Patient type
 
+struct PatientDate {
+    string paciente;
+    unsigned int hora;
+    unsigned int minuto;
+};
+
+string format_patient_date(struct PatientDate pd) {
+    
+    string s = pd.paciente + " ";
+    
+    if (pd.hora < 10) { s += "0" + to_string(pd.hora); }
+    else s += to_string(pd.hora);
+    
+    s += ":";
+    
+    if (pd.minuto < 10) { s += "0" + to_string(pd.minuto); }
+    else s += to_string(pd.minuto);
+    
+    return s;
+}
+
 class Clinic {
 private:
     
@@ -50,22 +71,22 @@ public:
     void pideConsulta(Patient p, Medic m, Date d) {
         
         // Obtener un iterador apuntando al médico m
-        TreeMap<Medic, Appointments>::Iterator it = _medics.find(m);    // O(logN)
+        TreeMap<Medic, Appointments>::Iterator it = _medics.find(m);    // O(logN) ----> Revisar si no viene mejor operator[]
         
         // Si el médico no existe, lanzar una excepción
         if (it == _medics.end()) throw MedicNotFoundException();        // O(1)
+        
+        // Get appointment list
+        Appointments* apps = &(it.value());                             // O(1)
 
-        // Obtener una referencia modificable a las citas del médico
-        Appointments aps = it.value();                                  // O(1)
-
-        // Create new appointment and try to add it to the medic's list
+        // Create new appointment
         Appointment a(p, d);
         
-        //cout << "Size of appointments was " << aps.size() << endl;
-        it.value().new_appointment(a); // --> esta funciona
-        //aps.new_appointment(a); // --> esta no, solo modifica la copia
-        //aps.new_appointment(a);   ----> ESTO ERA UN BUG, NO INSERTABA    // O(n), n = appointments.size()
-        //cout << "Size of appointments is now " << aps.size() << endl;
+        // Add the new appointment
+        apps->new_appointment(a);
+        
+        // Backup --> modo una sola línea
+        //it.value().new_appointment(a);
     }
 
     /**
@@ -84,15 +105,9 @@ public:
         // Si el médico no existe, lanzar una excepción
         if (it == _medics.cend()) throw MedicNotFoundException();           // O(1)
         
-        // Obtener una referencia modificable a las citas del médico
-        Appointments aps = it.value();                                      // O(1)
-        
-        // Get next appointment (throws EmptyAppointmentListException)
-        Appointment ap = aps.next_appointment();
-        
-        // Return patient
-        //return ap.patient();      // (!!!!!!!!), es lo mismo que antes, no se modificaba la original
-        return it.value().next_appointment().patient(); // ----> DEBUGGING
+        // En este caso he optado por realizar toda la operación en una misma línea
+        // pues al tratarse de un observador, sólo me deja utilizar ConstIterator
+        return it.value().next_appointment().patient();
     }
     
     /**
@@ -111,13 +126,13 @@ public:
         if (it == _medics.end()) throw MedicNotFoundException();        // O(1)
         
         // Obtener una referencia modificable a las citas del médico
-        Appointments aps = it.value();                                  // O(1)
+        Appointments* aps = &(it.value());                              // O(1)
         
         // Get next appointment (throws EmptyAppointmentListException)
-        aps.pop_appointment();                                          // O(1)
+        aps->pop_appointment();                                         // O(1)
         
-        // (!!!!!) ---> DEBUGGING, POR LO MISMO DE SIEMPRE
-        it.value().pop_appointment();
+        // Backup - modo single line
+        //it.value().pop_appointment();
     }
 
     /**
@@ -128,7 +143,7 @@ public:
      *
      * @throws MedicNotFoundException if medic is not present in the clinic.
      */
-    list<Patient> listaPacientes(Medic m, Date d) const {
+    list<struct PatientDate> listaPacientes(Medic m, Date d) const {
         
         // Obtener un iterador apuntando al médico m
         TreeMap<Medic, Appointments>::ConstIterator it = _medics.find(m);   // O(logN)
@@ -143,25 +158,49 @@ public:
         list<Appointment> aps_date = aps.get_appointments_on_date(d);       // O(n), n = appointments.size()
         
         // Quedarnos con los pacientes únicos
-        list<Patient> pats;
+        /*list<PatientDate> pats;
         bool unique = true;
         
         list<Appointment>::const_iterator aps_it = aps_date.cbegin();
         while (aps_it != aps_date.cend()) {
             
             // For each appointment, check if patient is unique in "pats"
-            list<Patient>::const_iterator pats_it = pats.cbegin();
+            list<PatientDate>::const_iterator pats_it = pats.cbegin();
             while (unique && pats_it != pats.cend()) {
                 if ((*aps_it).patient() == *pats_it) unique = false;
                 pats_it++;
             }
             
-            if (unique) pats.push_back((*aps_it).patient());
+            if (unique) {
+                struct PatientDate aux;
+                
+                aux.paciente = (*aps_it).patient();
+                aux.hora = (*aps_it).date().hour();
+                aux.minuto = (*aps_it).date().minute();
+
+                pats.push_back(aux);
+            }
             aps_it++;
             unique = true;
+        }*/
+        
+        list<PatientDate> patients;
+        
+        list<Appointment>::const_iterator apps_it = aps_date.cbegin();
+        while (apps_it != aps_date.cend()) {
+            
+            struct PatientDate aux;
+                
+            aux.paciente = (*apps_it).patient();
+            aux.hora = (*apps_it).date().hour();
+            aux.minuto = (*apps_it).date().minute();
+                
+            patients.push_back(aux);
+            
+            apps_it++;
         }
 
-        return pats;
+        return patients;
     }
     
     size_t numero_citas(Medic m) const {
