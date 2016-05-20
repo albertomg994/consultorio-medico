@@ -10,7 +10,6 @@
 #define Appointment_h
 
 #include <string>
-
 #include "Date.h"
 
 using namespace std;
@@ -28,14 +27,17 @@ private:
 
 public:
 
-    // Constructor - create new appointment
+    /**
+     * Constructor - create new appointment
+     * Complexity: O(1) - (patient name is reasonably short)
+     */
     Appointment(Patient p, Date d) : _patient(p), _date(d) {}
 
-    // Getters
+    // Getters - O(1) - (patient name is reasonably short)
     const Patient & patient() const { return _patient; }
     const Date & date() const { return _date; }
 
-    // Others
+    // Others - O(1) - (patient name is reasonably short)
     string to_string() {
         return "Patient: " + _patient + " - Date: " + _date.to_string();
     }

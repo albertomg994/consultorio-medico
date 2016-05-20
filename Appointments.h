@@ -32,37 +32,19 @@ public:
 
 
 /**
- * Appointments class. Represents the series of appointments for a
- * particular Medic
+ * Appointments class. Represents the series of appointments for a Medic
  */
 class Appointments {
 private:
-    
+
     list<Appointment> _appointments;
-    
-    /**
-     * In the Appointments context, an Appointment is valid if there's
-     * no other Appointment in _appointments with the same date.
-     */
-    bool valid_appointment(const Appointment &a) const {
-        
-        bool valid = true;
-        list<Appointment>::const_iterator it = _appointments.cbegin();
-        
-        while (valid && it != _appointments.cend()) {
-            Appointment aux = *it;
-            if (aux.date() == a.date()) valid = false;
-        }
-        
-        return valid;
-    }
-    
+
 public:
-    
-    // Getters
+
+    // Getters - O(1)
     const list<Appointment> & appointments() const { return _appointments; }
     size_t size() const { return _appointments.size(); }
-    
+
     /**
      * Returns a list with all appointments on a concrete day
      * Complexity: O(n), n = _appointments.size()
@@ -71,19 +53,19 @@ public:
      * @return The list
      */
     list<Appointment> get_appointments_on_date(const Date &d) const {
-        
+
         list<Appointment> ret;
-        
+
         list<Appointment>::const_iterator it = _appointments.cbegin();
         while (it != _appointments.cend()) {
             // We only have to check same day
             if ((*it).date().day() == d.day()) ret.push_back(*it);
             it++;
         }
-        
+
         return ret;
     }
-    
+
     /**
      * Pushes a new appointment to appointments list. If the new appointment
      * collides with another one's date, throw exception.
@@ -94,19 +76,18 @@ public:
      * an already taken date.
      */
     void new_appointment(const Appointment & a) {
-        
+
         list<Appointment>::iterator it = _appointments.begin();
-        
+
         // Search insert position
         while (a.date() > (*it).date() && it != _appointments.end()) it++;   // O(n)
-        
+
         // Check if date is already taken
         if (a.date() == (*it).date()) throw DateAlreadyTakenException();
-        
-        
-        _appointments.insert(it, a);            // O(1)
+
+        _appointments.insert(it, a);    // O(1)
     }
-    
+
     /**
      * Returns a const referente to next appointment in list
      * Complexity: O(1)
@@ -115,13 +96,13 @@ public:
      * @throws EmptyAppointmentListException if list is empty.
      */
     const Appointment & next_appointment() const {
-        
+
         if (_appointments.empty())
             throw EmptyAppointmentListException();
-        
+
         return _appointments.front();
     }
-    
+
     /**
      * Deletes first appointment from list
      * Complexity: O(1)
@@ -129,13 +110,13 @@ public:
      * @throws EmptyAppointmentListException if list is empty.
      */
     void pop_appointment() {
-        
+
         if (_appointments.empty())
             throw EmptyAppointmentListException();
-        
+
         _appointments.pop_front();
     }
-    
+
 };
 
 #endif /* Appointments_h */
